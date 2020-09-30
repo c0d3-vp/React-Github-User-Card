@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 class App extends React.Component {
   state = {
-    users: [],
+    user: [],
     followers: [],
     url: "",
     
@@ -16,7 +16,7 @@ class App extends React.Component {
       .then((res) => res.json())
       .then((res) => {
         this.setState({
-          users: res,
+          user: res
         });
       });
   };
@@ -25,44 +25,46 @@ class App extends React.Component {
       .then((res) => res.json())
       .then((res) => {
         this.setState({
-          followers: res,
+          followers: res
         });
         console.log(res);
       });
   };
-  // fetchFollowerUrl = (followers) => {
-  //   fetch(`https://github.com/${followers}`)
-  //     .then((res) => res.json())
-  //     .then((res) => {
-  //       this.setState({
-  //         url: res.html_url,
-  //       });
-  //       console.log(res);
-  //     });
-  // };
 
   render() {
     return (
       <div>
+        <hr />
+        <br />
         <div className="userContainer">
-          <img src={this.state.users.avatar_url} width="200px" alt="user img" />
-          <h1>{this.state.users.name}</h1>
-          <p>{this.state.users.location}</p>
-          <p>{this.state.users.bio}</p>
+          <img src={this.state.user.avatar_url} width="150px" alt="user img" />
+          <h1>{this.state.user.name}</h1>
+          <h2>{this.state.user.location}</h2>
+          <p>{this.state.user.bio}</p>
+          <p>{this.state.user.following} Following <span>●</span> {this.state.user.followers} Followers</p>
+          <a href="https://github.com/c0d3-vp">
+            <p>View Full Profile</p>
+          </a>
         </div>
+        <hr />
+        <h2>Followers</h2>
+        <hr />
+        <br />
         <div className="followerContainer">
           {this.state.followers.map((follower) => (
             <div key={follower.id}>
               <a href={follower.html_url}>
               <img
                 src={follower.avatar_url}
-                width="200px"
+                width="150px alt="
               />{" "}
+              <br />
               </a>
               <br />
             </div>
           ))}
         </div>
+        <hr />
       </div>
     );
   }
